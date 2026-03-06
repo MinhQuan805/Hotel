@@ -31,7 +31,8 @@ public class AuthService {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new RuntimeException("Invalid email or password"));
 
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        // So sánh password trực tiếp không hash
+        if (!request.getPassword().equals(user.getPassword())) {
             throw new RuntimeException("Invalid email or password");
         }
 
@@ -73,7 +74,8 @@ public class AuthService {
         user.setLastName(lastName);
         user.setUsername(username);
         user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        // Lưu password không mã hóa
+        user.setPassword(request.getPassword());
         user.setRole(User.UserRole.admin);
         user.setStatus(User.UserStatus.active);
         user.setPhoneNumber("");

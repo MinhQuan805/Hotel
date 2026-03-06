@@ -71,7 +71,8 @@ public class UserService {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPhoneNumber(request.getPhoneNumber());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        // Lưu password không mã hóa
+        user.setPassword(request.getPassword());
         user.setRole(request.getRole());
         user.setStatus(request.getStatus());
 
@@ -113,7 +114,8 @@ public class UserService {
         }
 
         if (request.getPassword() != null && !request.getPassword().isBlank()) {
-            user.setPassword(passwordEncoder.encode(request.getPassword()));
+            // Lưu password không mã hóa
+            user.setPassword(request.getPassword());
         }
 
         if (request.getRole() != null) {
